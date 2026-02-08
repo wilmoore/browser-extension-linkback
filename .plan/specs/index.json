@@ -1,0 +1,16 @@
+{
+  "lastSequence": 1,
+  "specs": [
+    {
+      "id": "spec-001",
+      "title": "Bidirectional Backlinks for the Browser (Keyboard-First)",
+      "filename": "spec-001-bidirectional-backlinks-for-the-browser.md",
+      "source": "clipboard",
+      "importedAt": "2026-02-05T00:00:00.000Z",
+      "extractedItems": {
+        "epics": 5,
+        "stories": 14
+      }
+    }
+  ]
+}
