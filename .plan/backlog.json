@@ -12,9 +12,10 @@
       "fingerprint": "spec|spec-001|epic|e001-link-creation",
       "source": "/pro:spec.import",
       "sourceSpec": "spec-001",
-      "sourceBranch": null,
+      "sourceBranch": "mvp/linkback",
       "createdAt": "2026-02-05T00:00:00.000Z",
-      "status": "open"
+      "status": "resolved",
+      "resolvedAt": "2026-02-07T00:00:00.000Z"
     },
     {
       "id": 2,
@@ -27,9 +28,10 @@
       "fingerprint": "spec|spec-001|epic|e002-jump-palette",
       "source": "/pro:spec.import",
       "sourceSpec": "spec-001",
-      "sourceBranch": null,
+      "sourceBranch": "mvp/linkback",
       "createdAt": "2026-02-05T00:00:00.000Z",
-      "status": "open"
+      "status": "resolved",
+      "resolvedAt": "2026-02-07T00:00:00.000Z"
     },
     {
       "id": 3,
@@ -42,9 +44,10 @@
       "fingerprint": "spec|spec-001|epic|e003-context-sidebar",
       "source": "/pro:spec.import",
       "sourceSpec": "spec-001",
-      "sourceBranch": null,
+      "sourceBranch": "mvp/linkback",
       "createdAt": "2026-02-05T00:00:00.000Z",
-      "status": "open"
+      "status": "resolved",
+      "resolvedAt": "2026-02-07T00:00:00.000Z"
     },
     {
       "id": 4,
@@ -57,9 +60,10 @@
       "fingerprint": "spec|spec-001|epic|e004-local-cache",
       "source": "/pro:spec.import",
       "sourceSpec": "spec-001",
-      "sourceBranch": null,
+      "sourceBranch": "mvp/linkback",
       "createdAt": "2026-02-05T00:00:00.000Z",
-      "status": "open"
+      "status": "resolved",
+      "resolvedAt": "2026-02-07T00:00:00.000Z"
     },
     {
       "id": 5,
@@ -87,9 +91,10 @@
       "fingerprint": "spec|spec-001|story|us001-link-shortcut",
       "source": "/pro:spec.import",
       "sourceSpec": "spec-001",
-      "sourceBranch": null,
+      "sourceBranch": "mvp/linkback",
       "createdAt": "2026-02-05T00:00:00.000Z",
-      "status": "open"
+      "status": "resolved",
+      "resolvedAt": "2026-02-07T00:00:00.000Z"
     },
     {
       "id": 7,
@@ -102,9 +107,10 @@
       "fingerprint": "spec|spec-001|story|us002-symmetric-links",
       "source": "/pro:spec.import",
       "sourceSpec": "spec-001",
-      "sourceBranch": null,
+      "sourceBranch": "mvp/linkback",
       "createdAt": "2026-02-05T00:00:00.000Z",
-      "status": "open"
+      "status": "resolved",
+      "resolvedAt": "2026-02-07T00:00:00.000Z"
     },
     {
       "id": 8,
@@ -117,9 +123,10 @@
       "fingerprint": "spec|spec-001|story|us003-dedupe",
       "source": "/pro:spec.import",
       "sourceSpec": "spec-001",
-      "sourceBranch": null,
+      "sourceBranch": "mvp/linkback",
       "createdAt": "2026-02-05T00:00:00.000Z",
-      "status": "open"
+      "status": "resolved",
+      "resolvedAt": "2026-02-07T00:00:00.000Z"
     },
     {
       "id": 9,
@@ -132,9 +139,10 @@
       "fingerprint": "spec|spec-001|story|us004-open-palette",
       "source": "/pro:spec.import",
       "sourceSpec": "spec-001",
-      "sourceBranch": null,
+      "sourceBranch": "mvp/linkback",
       "createdAt": "2026-02-05T00:00:00.000Z",
-      "status": "open"
+      "status": "resolved",
+      "resolvedAt": "2026-02-07T00:00:00.000Z"
     },
     {
       "id": 10,
@@ -147,9 +155,10 @@
       "fingerprint": "spec|spec-001|story|us005-vim-nav",
       "source": "/pro:spec.import",
       "sourceSpec": "spec-001",
-      "sourceBranch": null,
+      "sourceBranch": "mvp/linkback",
       "createdAt": "2026-02-05T00:00:00.000Z",
-      "status": "open"
+      "status": "resolved",
+      "resolvedAt": "2026-02-07T00:00:00.000Z"
     },
     {
       "id": 11,
@@ -162,9 +171,10 @@
       "fingerprint": "spec|spec-001|story|us006-modifier-vim",
       "source": "/pro:spec.import",
       "sourceSpec": "spec-001",
-      "sourceBranch": null,
+      "sourceBranch": "mvp/linkback",
       "createdAt": "2026-02-05T00:00:00.000Z",
-      "status": "open"
+      "status": "resolved",
+      "resolvedAt": "2026-02-07T00:00:00.000Z"
     },
     {
       "id": 12,
@@ -177,9 +187,10 @@
       "fingerprint": "spec|spec-001|story|us007-open-sidebar",
       "source": "/pro:spec.import",
       "sourceSpec": "spec-001",
-      "sourceBranch": null,
+      "sourceBranch": "mvp/linkback",
       "createdAt": "2026-02-05T00:00:00.000Z",
-      "status": "open"
+      "status": "resolved",
+      "resolvedAt": "2026-02-07T00:00:00.000Z"
     },
     {
       "id": 13,
@@ -192,9 +203,10 @@
       "fingerprint": "spec|spec-001|story|us008-reorder",
       "source": "/pro:spec.import",
       "sourceSpec": "spec-001",
-      "sourceBranch": null,
+      "sourceBranch": "mvp/linkback",
       "createdAt": "2026-02-05T00:00:00.000Z",
-      "status": "open"
+      "status": "resolved",
+      "resolvedAt": "2026-02-07T00:00:00.000Z"
     },
     {
       "id": 14,
@@ -207,9 +219,10 @@
       "fingerprint": "spec|spec-001|story|us009-offline",
       "source": "/pro:spec.import",
       "sourceSpec": "spec-001",
-      "sourceBranch": null,
+      "sourceBranch": "mvp/linkback",
       "createdAt": "2026-02-05T00:00:00.000Z",
-      "status": "open"
+      "status": "resolved",
+      "resolvedAt": "2026-02-07T00:00:00.000Z"
     },
     {
       "id": 15,
@@ -222,9 +235,10 @@
       "fingerprint": "spec|spec-001|story|us010-sync-reconnect",
       "source": "/pro:spec.import",
       "sourceSpec": "spec-001",
-      "sourceBranch": null,
+      "sourceBranch": "mvp/linkback",
       "createdAt": "2026-02-05T00:00:00.000Z",
-      "status": "open"
+      "status": "resolved",
+      "resolvedAt": "2026-02-07T00:00:00.000Z"
     },
     {
       "id": 16,
