@@ -1,0 +1,74 @@
+{
+  "manifest_version": 3,
+  "name": "Linkback",
+  "version": "0.1.0",
+  "description": "Bidirectional backlinks for the browser. Keyboard-first.",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "sidePanel",
+    "clipboardRead"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "dist/background/service-worker.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["dist/content/index.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "side_panel": {
+    "default_path": "sidebar.html"
+  },
+  "action": {
+    "default_title": "Linkback",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "commands": {
+    "open-jump-palette": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+K",
+        "mac": "Command+Shift+K"
+      },
+      "description": "Open Jump Palette"
+    },
+    "open-link-modal": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+L",
+        "mac": "Command+Shift+L"
+      },
+      "description": "Link current page to another"
+    },
+    "toggle-sidebar": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+\\",
+        "mac": "Command+Shift+\\"
+      },
+      "description": "Toggle Context Sidebar"
+    },
+    "open-inventory": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y",
+        "mac": "Command+Shift+Y"
+      },
+      "description": "Open Global Inventory"
+    }
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  }
+}
