@@ -1,0 +1,14 @@
+{
+  "lastSequence": 1,
+  "entries": [
+    {
+      "id": 1,
+      "slug": "global-inventory-surface",
+      "title": "Global Inventory Surface",
+      "path": "doc/decisions/001-global-inventory-surface.md",
+      "branches": [
+        "feat/continue-feature-mvp-build"
+      ]
+    }
+  ]
+}
