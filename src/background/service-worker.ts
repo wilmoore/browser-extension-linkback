@@ -14,8 +14,9 @@ import {
   CreateLinkPayload,
   DeleteLinkPayload,
   ReorderLinksPayload,
+  MergePagesPayload,
 } from '../shared/types';
-import { runMigrations, getPendingSync } from '../shared/storage';
+import { runMigrations, getPendingSync, getAllPages } from '../shared/storage';
 import {
   createLink,
   deleteLink,
@@ -23,8 +24,8 @@ import {
   getLinkedPages,
   updatePageTitle,
   reorderLinks,
-  searchPages,
   getLinkStats,
+  mergePages,
 } from '../shared/links';
 import { normalizeUrl } from '../shared/url-utils';
 
@@ -154,6 +155,30 @@ async function handleMessage(
           stats,
         },
       };
+    }
+
+    case 'GET_INVENTORY_SNAPSHOT': {
+      const [pages, pending, stats] = await Promise.all([
+        getAllPages(),
+        getPendingSync(),
+        getLinkStats(),
+      ]);
+
+      return {
+        success: true,
+        data: {
+          pages,
+          stats,
+          pendingCount: pending.length,
+          isOnline: navigator.onLine,
+        },
+      };
+    }
+
+    case 'MERGE_PAGES': {
+      const payload = message.payload as MergePagesPayload;
+      const result = await mergePages(payload);
+      return { success: true, data: result };
     }
 
     default:

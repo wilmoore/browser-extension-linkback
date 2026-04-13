@@ -6,7 +6,13 @@
  * Creating or deleting a link updates both directions atomically.
  */
 
-import { PageLinks, CreateLinkPayload, DeleteLinkPayload, ReorderLinksPayload } from './types';
+import {
+  PageLinks,
+  CreateLinkPayload,
+  DeleteLinkPayload,
+  ReorderLinksPayload,
+  MergePagesPayload,
+} from './types';
 import { getLinkGraph, saveLinkGraph, addPendingSync } from './storage';
 import { normalizeUrl } from './url-utils';
 
@@ -295,4 +301,100 @@ export async function linkExists(sourceUrl: string, targetUrl: string): Promise<
   const page = graph.pages[normalizedSource];
 
   return page?.linkedUrls.includes(normalizedTarget) ?? false;
+}
+
+/**
+ * Merge duplicate pages by folding all relationships into the primary URL
+ */
+export async function mergePages(payload: MergePagesPayload): Promise<{
+  mergedLinks: number;
+}> {
+  const primaryUrl = normalizeUrl(payload.primaryUrl);
+  const duplicateUrl = normalizeUrl(payload.duplicateUrl);
+
+  if (primaryUrl === duplicateUrl) {
+    throw new Error('Cannot merge a page into itself');
+  }
+
+  const graph = await getLinkGraph();
+  const primaryPage = graph.pages[primaryUrl];
+  const duplicatePage = graph.pages[duplicateUrl];
+
+  if (!primaryPage) {
+    throw new Error('Primary page not found');
+  }
+  if (!duplicatePage) {
+    throw new Error('Duplicate page not found');
+  }
+
+  const now = new Date().toISOString();
+  let mergedLinks = 0;
+
+  for (const neighborUrl of duplicatePage.linkedUrls) {
+    if (neighborUrl === primaryUrl) {
+      continue;
+    }
+
+    const neighbor = graph.pages[neighborUrl];
+    if (!neighbor) {
+      continue;
+    }
+
+    const primaryAlreadyLinked = primaryPage.linkedUrls.includes(neighborUrl);
+    if (!primaryAlreadyLinked) {
+      primaryPage.linkedUrls.push(neighborUrl);
+      if (!primaryPage.linkOrder.includes(neighborUrl)) {
+        primaryPage.linkOrder.push(neighborUrl);
+      }
+      mergedLinks++;
+    }
+
+    neighbor.linkedUrls = replaceAndDedupe(neighbor.linkedUrls, duplicateUrl, primaryUrl);
+    neighbor.linkOrder = replaceAndDedupe(neighbor.linkOrder, duplicateUrl, primaryUrl);
+    neighbor.updatedAt = now;
+  }
+
+  primaryPage.linkedUrls = dedupeList(
+    primaryPage.linkedUrls.filter((url) => url !== duplicateUrl)
+  );
+  primaryPage.linkOrder = dedupeList(
+    primaryPage.linkOrder.filter((url) => url !== duplicateUrl)
+  );
+  primaryPage.updatedAt = now;
+
+  delete graph.pages[duplicateUrl];
+
+  await saveLinkGraph(graph);
+
+  await addPendingSync({
+    type: 'merge-pages',
+    payload: {
+      sourceUrl: duplicateUrl,
+      targetUrl: primaryUrl,
+      primaryUrl,
+      duplicateUrl,
+    },
+  });
+
+  console.log('[Linkback] Merged pages:', duplicateUrl, '→', primaryUrl);
+
+  return { mergedLinks };
+}
+
+function dedupeList(urls: string[]): string[] {
+  return Array.from(new Set(urls));
+}
+
+function replaceAndDedupe(list: string[], target: string, replacement: string): string[] {
+  const next: string[] = [];
+  for (const url of list) {
+    if (url === target) {
+      if (!next.includes(replacement)) {
+        next.push(replacement);
+      }
+    } else if (!next.includes(url)) {
+      next.push(url);
+    }
+  }
+  return next;
 }

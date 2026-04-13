@@ -20,6 +20,7 @@ import {
   getLinksForPage,
   getLinkedPages,
   linkExists,
+  mergePages,
 } from './links';
 import { getLinkGraph, saveLinkGraph } from './storage';
 
@@ -201,5 +202,61 @@ describe('getLinkedPages', () => {
   it('returns empty array for unlinked pages', async () => {
     const linkedPages = await getLinkedPages('https://example.com/x');
     expect(linkedPages).toEqual([]);
+  });
+});
+
+describe('mergePages', () => {
+  beforeEach(() => {
+    Object.keys(mockStorage).forEach((key) => delete mockStorage[key]);
+    vi.clearAllMocks();
+  });
+
+  it('moves duplicate relationships to the primary page and deletes the duplicate', async () => {
+    await createLink({
+      sourceUrl: 'https://example.com/a',
+      sourceTitle: 'Page A',
+      targetUrl: 'https://example.com/b',
+      targetTitle: 'Page B',
+    });
+
+    await createLink({
+      sourceUrl: 'https://example.com/duplicate',
+      sourceTitle: 'Dup',
+      targetUrl: 'https://example.com/b',
+      targetTitle: 'Page B',
+    });
+
+    await createLink({
+      sourceUrl: 'https://example.com/duplicate',
+      sourceTitle: 'Dup',
+      targetUrl: 'https://example.com/c',
+      targetTitle: 'Page C',
+    });
+
+    const result = await mergePages({
+      primaryUrl: 'https://example.com/a',
+      duplicateUrl: 'https://example.com/duplicate',
+    });
+
+    expect(result.mergedLinks).toBe(1);
+
+    const linksForA = await getLinksForPage('https://example.com/a');
+    expect(linksForA?.linkedUrls).toContain('https://example.com/c');
+
+    const linksForC = await getLinksForPage('https://example.com/c');
+    expect(linksForC?.linkedUrls).toContain('https://example.com/a');
+    expect(linksForC?.linkedUrls).not.toContain('https://example.com/duplicate');
+
+    const exists = await linkExists('https://example.com/duplicate', 'https://example.com/c');
+    expect(exists).toBe(false);
+  });
+
+  it('throws when attempting to merge the same URL', async () => {
+    await expect(
+      mergePages({
+        primaryUrl: 'https://example.com/a',
+        duplicateUrl: 'https://example.com/a',
+      })
+    ).rejects.toThrow('Cannot merge a page into itself');
   });
 });

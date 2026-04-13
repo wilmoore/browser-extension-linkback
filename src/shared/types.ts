@@ -74,13 +74,15 @@ export interface PendingSync {
   /** Unique operation ID */
   id: string;
   /** Operation type */
-  type: 'create-link' | 'delete-link' | 'update-title';
+  type: 'create-link' | 'delete-link' | 'update-title' | 'merge-pages';
   /** Operation payload */
   payload: {
     sourceUrl?: string;
     targetUrl?: string;
     url?: string;
     title?: string;
+    primaryUrl?: string;
+    duplicateUrl?: string;
   };
   /** ISO 8601 timestamp of operation */
   createdAt: string;
@@ -111,7 +113,9 @@ export type MessageType =
   | 'GET_PAGE_LINKS'
   | 'UPDATE_TITLE'
   | 'REORDER_LINKS'
-  | 'SYNC_STATUS';
+  | 'SYNC_STATUS'
+  | 'GET_INVENTORY_SNAPSHOT'
+  | 'MERGE_PAGES';
 
 /**
  * Base message structure for extension communication
@@ -154,6 +158,16 @@ export interface DeleteLinkPayload {
 export interface ReorderLinksPayload {
   url: string;
   linkOrder: string[];
+}
+
+/**
+ * Merge two normalized URLs, keeping the primary URL
+ */
+export interface MergePagesPayload {
+  /** Canonical page that survives */
+  primaryUrl: string;
+  /** Duplicate URL that will be folded into the primary */
+  duplicateUrl: string;
 }
 
 /**

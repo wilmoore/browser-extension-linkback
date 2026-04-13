@@ -10,6 +10,7 @@ export default defineConfig({
         'background/service-worker': resolve(__dirname, 'src/background/service-worker.ts'),
         'content/index': resolve(__dirname, 'src/content/index.ts'),
         'sidebar/index': resolve(__dirname, 'src/sidebar/index.tsx'),
+        'inventory/index': resolve(__dirname, 'src/inventory/index.tsx'),
       },
       output: {
         entryFileNames: '[name].js',
